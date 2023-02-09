@@ -13,15 +13,12 @@ function App() {
   return (
       <div>
           <Header />
-
           <Routes>
             <Route path="/" element={<Photos />} />           
             <Route path="/cart" element={<Cart />} />
           </Routes>
-          <h1>Home Page</h1>
       </div>
   )
 }
-
 
 export default App
