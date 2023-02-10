@@ -5,7 +5,6 @@ const Context = React.createContext()
 function ContextProvider(props) {
     const [photos, setPhotos] = useState([])
 
-    console.log(photos)
 
     useEffect(() => {
         console.log(`effect happend`)
@@ -14,10 +13,20 @@ function ContextProvider(props) {
             .then(data => setPhotos(data))
     }, [])
 
-    console.log(photos)
+    function toggleFavorite(id) {
+        const changedArr = photos.map(photo => {
+            if (photo.id === id) {
+                // isFavorite doesn't exist, so "!undefined" will return "true"
+                return { ...photo, isFavorite: !photo.isFavorite }
+            }
+            return photo
+        })
+
+        setPhotos(changedArr)       
+    }
 
     return (
-        <Context.Provider value={{ photos }}>
+        <Context.Provider value={{ photos, toggleFavorite }}>
             {props.children}
         </Context.Provider>
     )
