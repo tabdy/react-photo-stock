@@ -4,7 +4,7 @@ const Context = React.createContext()
 
 function ContextProvider(props) {
     const [photos, setPhotos] = useState([])
-
+    const [cartItems, setCartItems] = useState([])
 
     useEffect(() => {
         console.log(`effect happend`)
@@ -25,8 +25,19 @@ function ContextProvider(props) {
         setPhotos(changedArr)       
     }
 
+    function addToCart(photoItem) {
+        setCartItems(prevState => {
+            return prevState.find(item => item.id === photoItem.id ) ?
+             prevState : [...prevState, photoItem]
+        })
+    }
+
+    function removeFromCart(id) {
+        setCartItems(prevState => [...prevState].filter(item => item.id !== id))
+    }
+
     return (
-        <Context.Provider value={{ photos, toggleFavorite }}>
+        <Context.Provider value={{ photos, toggleFavorite, cartItems, addToCart, removeFromCart }}>
             {props.children}
         </Context.Provider>
     )
