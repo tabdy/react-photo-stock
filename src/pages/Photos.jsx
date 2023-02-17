@@ -7,7 +7,6 @@ import { defineClass } from "../utils/defineClass"
 
 function Photos() {
     const contextPhotos = useContext(Context)
-
     const imageElements = contextPhotos.photos.map((photo, i) => (
         <Picture key={photo.id} img={photo} className={defineClass(i)} />
     ))

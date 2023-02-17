@@ -7,8 +7,7 @@ function ContextProvider(props) {
     const [cartItems, setCartItems] = useState([])
 
     useEffect(() => {
-        console.log(`effect happend`)
-        fetch("https://api.unsplash.com/photos?client_id=wmP6GfLvMsJrZ3J82YrMYIXx65Tym4n-rj7oKddQX-I&per_page=25&order_by=popular")
+        fetch("https://api.unsplash.com/photos?client_id=wmP6GfLvMsJrZ3J82YrMYIXx65Tym4n-rj7oKddQX-I&per_page=30&order_by=popular")
             .then(resp => resp.json())
             .then(data => setPhotos(data))
     }, [])
@@ -36,8 +35,12 @@ function ContextProvider(props) {
         setCartItems(prevState => [...prevState].filter(item => item.id !== id))
     }
 
+    function clearCart() {
+        setCartItems([])
+    }
+
     return (
-        <Context.Provider value={{ photos, toggleFavorite, cartItems, addToCart, removeFromCart }}>
+        <Context.Provider value={{ photos, toggleFavorite, cartItems, addToCart, removeFromCart, clearCart }}>
             {props.children}
         </Context.Provider>
     )
